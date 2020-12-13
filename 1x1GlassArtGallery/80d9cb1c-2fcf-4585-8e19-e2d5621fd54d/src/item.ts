@@ -22,7 +22,7 @@ export default class SignPost implements IScript<Props> {
     )
 
     let nft = 'ethereum://' + props.contract + '/' + props.id
-
+log(nft)
     
     frame.addComponent(
       new NFTShape(nft, {
@@ -30,17 +30,17 @@ export default class SignPost implements IScript<Props> {
         style: PictureFrameStyle[props.style],
       }) 
     )
-
-    if (props.ui) {
-      frame.addComponent(
-        new OnPointerDown(
-          () => {
-            openNFTDialog(nft, props.uiText ? props.uiText : null)
-          },
-          { hoverText: 'Open UI' }
-        )
-      )
-    } 
+ 
+    // if (props.ui) {
+    //   frame.addComponent(
+    //     new OnPointerDown(
+    //       () => {
+    //         openNFTDialog(nft, props.uiText ? props.uiText : null)
+    //       },
+    //       { hoverText: 'Open UI' }
+    //     )
+    //   )
+    // } 
 
     // let test = new Entity()
     // test.setParent(host)
