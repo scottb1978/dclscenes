@@ -443,17 +443,18 @@ script3.spawn(verticalCircularPl, {"distance":16,"speed":3,"autoStart":true,"onR
 // }
  
   
-
+const delay = ms => new Promise(res => setTimeout(res, ms)); 
+ 
 async function loadFrames() {
   let frames = 'http://localhost:3000/nftPictureFrames'
+ 
 
-
-  try {
+  try { 
     let response = await fetch(frames)
     let json = await response.json()
 
     json.forEach(e => {
-
+        delay(5000);
         log(e.location)
         const frame = new Entity(e.location)
         engine.addEntity(frame)
@@ -463,9 +464,40 @@ async function loadFrames() {
           rotation: new Quaternion(e.rotation.x, e.rotation.y, e.rotation.z, e.rotation.w),
           scale: new Vector3(e.scale.x, e.scale.y, e.scale.z)
         })
-        frame.addComponentOrReplace(t)
-        script1.spawn(frame, { "id": e.art.id, "contract": e.art.contract, "style": "Minimal_White", "color": "#FFFFFF", "ui": true }, createChannel(channelId, l1n1, channelBus))
+      frame.addComponentOrReplace(t)
+      
+      const art = new Entity()
+      art.setParent(frame)
+
+      art.addComponent(
+        new Transform({
+          position: new Vector3(0, 0.25, 0),
+          rotation: Quaternion.Euler(0, 180, 0),
+        })
+      )
+
+     let nft = 'ethereum://' + e.art.contract + '/' + e.art.id 
+    //  let nft = 'ethereum://0xd07dc4262bcdbf85190c01c996b4c06a461d2430/59442' 
+     log(nft)
+
+      
+      // art.addComponent(new NFTShape(nft, Color3.Black())); 
+     art.addComponent(
+       new NFTShape(nft, {
+         color: Color3.FromHexString('#FFFFFF'),
+         style: PictureFrameStyle['Minimal_White'],
+      }) 
+     )
   
+     art.addComponent(
+        new OnPointerDown(
+          () => {
+            openNFTDialog(nft, null)
+          },
+          { hoverText: 'Open UI' }
+        )
+      )
+      
     })    
   } 
   catch (e) {
