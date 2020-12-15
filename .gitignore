@@ -1,5 +1,4 @@
 
 *.lib
 *.glb
-1x1GlassArtGallery/bin/*
 node_modules/
