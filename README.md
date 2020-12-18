@@ -36,5 +36,5 @@ https://glassartgallery.rentabyl.vercel.app/
   1. Go to line 449 > let frames = 'https://api.jsonbin.io/b/5fd82578fbb23c2e36a6e548/1'
   1. Change the url to be your json url 
   
-You should now be able to deploy it to your land. If you are having issues with     
+You should now be able to deploy it to your land. If you get stuck come to our [Discord](https://discord.gg/JAJEd5dKjv) and we will try to help you out.
   
